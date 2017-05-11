@@ -53,7 +53,7 @@ namespace FilmKveldApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult RegisterFilm()
+        public ActionResult RegistrerFilm()
         {
             if (Session["LoggetInn"] != null)
             {
@@ -67,7 +67,7 @@ namespace FilmKveldApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegisterFilm(Filmer nyFilm, HttpPostedFileBase file)
+        public ActionResult RegistrerFilm(Filmer nyFilm, HttpPostedFileBase file)
         {
             if (file != null)
             {
@@ -87,6 +87,72 @@ namespace FilmKveldApp.Controllers
                 dbkobling.SaveChanges();
             }
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult RedigerFilm(int id)
+        {
+            using (var dbkobling = new FilmKveldDBEntities())
+            {
+                var redigerFilm = (from film in dbkobling.Filmer
+                                 where film.Film_Id == id
+                                 select film).SingleOrDefault();
+
+
+                return View(redigerFilm);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult RedigerFilm(Filmer film)
+        {
+            using (var dbkobling = new FilmKveldDBEntities())
+            {
+                var redigerFilm = (from films in dbkobling.Filmer
+                                 where films.Film_Id == film.Film_Id
+                                 select films).SingleOrDefault();
+
+                redigerFilm.Film_Id = film.Film_Id;
+                redigerFilm.Tittel = film.Tittel;
+                redigerFilm.Bilde = film.Bilde;
+                redigerFilm.Utgivelsesaar = film.Utgivelsesaar;
+                redigerFilm.Beskrivelse = film.Beskrivelse;
+                redigerFilm.Kategori_Id = film.Kategori_Id;
+
+                dbkobling.SaveChanges();
+
+                return RedirectToAction("VisAlleFilmer");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult SlettFilm(int id)
+        {
+            using (var dbkobling = new FilmKveldDBEntities())
+            {
+                var slettFilm = (from film in dbkobling.Filmer
+                                   where film.Film_Id == id
+                                   select film).SingleOrDefault();
+
+
+                return View(slettFilm);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult SlettFilm(Filmer film)
+        {
+            using (var dbkobling = new FilmKveldDBEntities())
+            {
+                var slettFilm = (from films in dbkobling.Filmer
+                                   where films.Film_Id == film.Film_Id
+                                   select films).SingleOrDefault();
+
+                dbkobling.Filmer.Remove(slettFilm);
+                dbkobling.SaveChanges();
+
+                return RedirectToAction("VisAlleFilmer");
+            }
         }
     }
 }

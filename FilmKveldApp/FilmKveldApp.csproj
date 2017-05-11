@@ -196,6 +196,8 @@
     </Content>
     <Content Include="Views\Admin\LoggInnAdmin.cshtml" />
     <Content Include="Views\Admin\RegistrerFilm.cshtml" />
+    <Content Include="Views\Admin\RedigerFilm.cshtml" />
+    <Content Include="Views\Admin\SlettFilm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

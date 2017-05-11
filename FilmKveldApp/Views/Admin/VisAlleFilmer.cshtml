@@ -16,5 +16,10 @@
         <h3>@filmer.Utgivelsesaar</h3>
         <h4>@filmer.Beskrivelse</h4>
     </article>
+
+    <ul>
+        <li>@Html.ActionLink("Rediger Film", "RedigerFilm", new { id = filmer.Film_Id }, null)</li>
+        <li>@Html.ActionLink("Slett film", "SlettFilm", new { id = filmer.Film_Id}, null)</li>
+    </ul>
 }
 

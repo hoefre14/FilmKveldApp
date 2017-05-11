@@ -1,0 +1,21 @@
+﻿@Model FilmKveldApp.Models.Filmer
+@{
+    ViewBag.Title = "SlettFilm";
+}
+
+<h2>SlettFilm</h2>
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>Tittel: </td>
+            <td>@Model.Tittel</td>
+        </tr>
+        <tr>
+            <td>Film Id: </td>
+            <td>@Model.Film_Id</td>
+        </tr>
+    </table>
+    <input type="submit" value="Slett film" />
+}

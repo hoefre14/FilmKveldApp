@@ -1,9 +1,9 @@
 ﻿@model FilmKveldApp.Models.Filmer
 @{
-    ViewBag.Title = "RegistrerFilm";
+    ViewBag.Title = "RegisterFilm";
 }
 
-<h2>RegistrerFilm</h2>
+<h2>RegisterFilm</h2>
 
 @{
     // Kunne vært i main Layout for å få gjennom alle sidene
@@ -12,26 +12,26 @@
     <p>Velkommen @username, du er logget på som administrator.</p>
 }
 
-@using (Html.BeginForm("RegisterNyFilm", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("RegistrerNyFilm", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <lablel>
-        Tittel
+        Tittel:
         @Html.TextBoxFor(filmer => filmer.Tittel)
     </lablel><br />
     <label>
-        Bilde
+        Bilde:
         <input type="file" name="file" />
     </label><br />
     <label>
-        Utgivelsesaar
+        Utgivelsesaar:
         @Html.TextBoxFor(filmer => filmer.Utgivelsesaar)
     </label><br />
     <label>
-        Beskrivelse
+        Beskrivelse:
         @Html.TextBoxFor(filmer => filmer.Beskrivelse)
     </label><br />
     <label>
-        Kategori
+        Category_ID:
         @Html.TextBoxFor(filmer => filmer.Kategori_Id)
     </label>
     <input type="submit" value="Lagre Film" />

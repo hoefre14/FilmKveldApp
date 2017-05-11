@@ -1,0 +1,33 @@
+﻿@model FilmKveldApp.Models.Filmer
+@{
+    ViewBag.Title = "RedigerFilm";
+}
+
+<h2>RedigerFilm</h2>
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <td>Tittel: </td>
+            <td>@Html.TextBoxFor(filmer => filmer.Tittel, new { @Value = Model.Tittel })</td>
+        </tr>
+        <tr>
+            <td>Bilde: </td>
+            <td>@Html.TextBoxFor(filmer => filmer.Bilde, new { @Value = Model.Bilde })</td>
+        </tr>
+        <tr>
+            <td>Utgivelsesaar: </td>
+            <td>@Html.TextBoxFor(filmer => filmer.Utgivelsesaar, new { @Value = Model.Utgivelsesaar })</td>
+        </tr>
+        <tr>
+            <td>Beskrivelse: </td>
+            <td>@Html.TextBoxFor(filmer => filmer.Beskrivelse, new { @Value = Model.Beskrivelse })</td>
+        </tr>
+        <tr>
+            <td>Kategori ID: </td>
+            <td>@Html.TextBoxFor(filmer => filmer.Kategori_Id, new { @Value = Model.Kategori_Id })</td>
+        </tr>
+    </table>
+    <input type="submit" value="Lagre endringer" />
+}
