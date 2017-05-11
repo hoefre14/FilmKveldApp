@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FilmKveldDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Brukere">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fornavn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Etternavn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Brukernavn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Alder" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Filmer">
+    <Key>
+      <PropertyRef Name="Film_Id" />
+    </Key>
+    <Property Name="Film_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Tittel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Bilde" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Utgivelsesaar" Type="Int32" />
+    <Property Name="Beskrivelse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Kategori_Id" Type="Int32" />
+    <NavigationProperty Name="Genre" Relationship="Self.FK_Filmer_Genre" FromRole="Filmer" ToRole="Genre" />
+  </EntityType>
+  <EntityType Name="Genre">
+    <Key>
+      <PropertyRef Name="Kategori_Id" />
+    </Key>
+    <Property Name="Kategori_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Kategori" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Filmer" Relationship="Self.FK_Filmer_Genre" FromRole="Genre" ToRole="Filmer" />
+  </EntityType>
+  <Association Name="FK_Filmer_Genre">
+    <End Role="Genre" Type="Self.Genre" Multiplicity="0..1" />
+    <End Role="Filmer" Type="Self.Filmer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="Kategori_Id" />
+      </Principal>
+      <Dependent Role="Filmer">
+        <PropertyRef Name="Kategori_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FilmKveldDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Brukere" EntityType="Self.Brukere" />
+    <EntitySet Name="Filmer" EntityType="Self.Filmer" />
+    <EntitySet Name="Genre" EntityType="Self.Genre" />
+    <AssociationSet Name="FK_Filmer_Genre" Association="Self.FK_Filmer_Genre">
+      <End Role="Genre" EntitySet="Genre" />
+      <End Role="Filmer" EntitySet="Filmer" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

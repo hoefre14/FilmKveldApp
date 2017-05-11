@@ -1,0 +1,30 @@
+﻿@model FilmKveldApp.Models.Brukere
+@{
+    ViewBag.Title = "LoggInnAdmin";
+}
+
+<h2>LoggInnAdmin</h2>
+
+@using (Html.BeginForm())
+{
+    <label>
+        Brukernavn: 
+        @Html.TextBoxFor(bruker => bruker.Brukernavn)
+    </label>
+    <input type="submit" value="Logg inn" />
+}
+
+
+@{
+    if (ViewBag.LoggetInn != null)
+    {
+        if (ViewBag.LoggetInn == true)
+        {
+            <p>Du er logget inn :)</p>
+        }
+        else
+        {
+            <p>Brukernavn eller passord er feil!</p>
+        }
+    }
+}

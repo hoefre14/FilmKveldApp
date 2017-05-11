@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FilmKveldDBModelStoreContainer" CdmEntityContainer="FilmKveldDBEntities">
+    <EntitySetMapping Name="Brukere">
+      <EntityTypeMapping TypeName="FilmKveldDBModel.Brukere">
+        <MappingFragment StoreEntitySet="Brukere">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Fornavn" ColumnName="Fornavn" />
+          <ScalarProperty Name="Etternavn" ColumnName="Etternavn" />
+          <ScalarProperty Name="Brukernavn" ColumnName="Brukernavn" />
+          <ScalarProperty Name="Alder" ColumnName="Alder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Filmer">
+      <EntityTypeMapping TypeName="FilmKveldDBModel.Filmer">
+        <MappingFragment StoreEntitySet="Filmer">
+          <ScalarProperty Name="Film_Id" ColumnName="Film_Id" />
+          <ScalarProperty Name="Tittel" ColumnName="Tittel" />
+          <ScalarProperty Name="Bilde" ColumnName="Bilde" />
+          <ScalarProperty Name="Utgivelsesaar" ColumnName="Utgivelsesaar" />
+          <ScalarProperty Name="Beskrivelse" ColumnName="Beskrivelse" />
+          <ScalarProperty Name="Kategori_Id" ColumnName="Kategori_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Genre">
+      <EntityTypeMapping TypeName="FilmKveldDBModel.Genre">
+        <MappingFragment StoreEntitySet="Genre">
+          <ScalarProperty Name="Kategori_Id" ColumnName="Kategori_Id" />
+          <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

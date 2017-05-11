@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FilmKveldDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Brukere">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fornavn" Type="nvarchar" MaxLength="50" />
+    <Property Name="Etternavn" Type="nvarchar" MaxLength="50" />
+    <Property Name="Brukernavn" Type="nvarchar" MaxLength="50" />
+    <Property Name="Alder" Type="int" />
+  </EntityType>
+  <EntityType Name="Filmer">
+    <Key>
+      <PropertyRef Name="Film_Id" />
+    </Key>
+    <Property Name="Film_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tittel" Type="nvarchar" MaxLength="50" />
+    <Property Name="Bilde" Type="nvarchar" MaxLength="50" />
+    <Property Name="Utgivelsesaar" Type="int" />
+    <Property Name="Beskrivelse" Type="nvarchar(max)" />
+    <Property Name="Kategori_Id" Type="int" />
+  </EntityType>
+  <EntityType Name="Genre">
+    <Key>
+      <PropertyRef Name="Kategori_Id" />
+    </Key>
+    <Property Name="Kategori_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Kategori" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Filmer_Genre">
+    <End Role="Genre" Type="Self.Genre" Multiplicity="0..1" />
+    <End Role="Filmer" Type="Self.Filmer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="Kategori_Id" />
+      </Principal>
+      <Dependent Role="Filmer">
+        <PropertyRef Name="Kategori_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FilmKveldDBModelStoreContainer">
+    <EntitySet Name="Brukere" EntityType="Self.Brukere" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Filmer" EntityType="Self.Filmer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Filmer_Genre" Association="Self.FK_Filmer_Genre">
+      <End Role="Genre" EntitySet="Genre" />
+      <End Role="Filmer" EntitySet="Filmer" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

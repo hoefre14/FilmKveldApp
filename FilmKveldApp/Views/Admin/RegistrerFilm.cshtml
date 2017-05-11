@@ -1,0 +1,38 @@
+﻿@model FilmKveldApp.Models.Filmer
+@{
+    ViewBag.Title = "RegistrerFilm";
+}
+
+<h2>RegistrerFilm</h2>
+
+@{
+    // Kunne vært i main Layout for å få gjennom alle sidene
+    String username = (String)Session["LoggetInn"];
+
+    <p>Velkommen @username, du er logget på som administrator.</p>
+}
+
+@using (Html.BeginForm("RegisterNyFilm", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <lablel>
+        Tittel
+        @Html.TextBoxFor(filmer => filmer.Tittel)
+    </lablel><br />
+    <label>
+        Bilde
+        <input type="file" name="file" />
+    </label><br />
+    <label>
+        Utgivelsesaar
+        @Html.TextBoxFor(filmer => filmer.Utgivelsesaar)
+    </label><br />
+    <label>
+        Beskrivelse
+        @Html.TextBoxFor(filmer => filmer.Beskrivelse)
+    </label><br />
+    <label>
+        Kategori
+        @Html.TextBoxFor(filmer => filmer.Kategori_Id)
+    </label>
+    <input type="submit" value="Lagre Film" />
+}

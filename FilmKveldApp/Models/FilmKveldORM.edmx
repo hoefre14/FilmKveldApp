@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FilmKveldDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Brukere">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fornavn" Type="nvarchar" MaxLength="50" />
+          <Property Name="Etternavn" Type="nvarchar" MaxLength="50" />
+          <Property Name="Brukernavn" Type="nvarchar" MaxLength="50" />
+          <Property Name="Alder" Type="int" />
+        </EntityType>
+        <EntityType Name="Filmer">
+          <Key>
+            <PropertyRef Name="Film_Id" />
+          </Key>
+          <Property Name="Film_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tittel" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bilde" Type="nvarchar" MaxLength="50" />
+          <Property Name="Utgivelsesaar" Type="int" />
+          <Property Name="Beskrivelse" Type="nvarchar(max)" />
+          <Property Name="Kategori_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="Kategori_Id" />
+          </Key>
+          <Property Name="Kategori_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kategori" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Filmer_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="0..1" />
+          <End Role="Filmer" Type="Self.Filmer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="Kategori_Id" />
+            </Principal>
+            <Dependent Role="Filmer">
+              <PropertyRef Name="Kategori_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FilmKveldDBModelStoreContainer">
+          <EntitySet Name="Brukere" EntityType="Self.Brukere" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Filmer" EntityType="Self.Filmer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Filmer_Genre" Association="Self.FK_Filmer_Genre">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="Filmer" EntitySet="Filmer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FilmKveldDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Brukere">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fornavn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Etternavn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Brukernavn" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Alder" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Filmer">
+          <Key>
+            <PropertyRef Name="Film_Id" />
+          </Key>
+          <Property Name="Film_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tittel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Bilde" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Utgivelsesaar" Type="Int32" />
+          <Property Name="Beskrivelse" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Kategori_Id" Type="Int32" />
+          <NavigationProperty Name="Genre" Relationship="Self.FK_Filmer_Genre" FromRole="Filmer" ToRole="Genre" />
+        </EntityType>
+        <EntityType Name="Genre">
+          <Key>
+            <PropertyRef Name="Kategori_Id" />
+          </Key>
+          <Property Name="Kategori_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kategori" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Filmer" Relationship="Self.FK_Filmer_Genre" FromRole="Genre" ToRole="Filmer" />
+        </EntityType>
+        <Association Name="FK_Filmer_Genre">
+          <End Role="Genre" Type="Self.Genre" Multiplicity="0..1" />
+          <End Role="Filmer" Type="Self.Filmer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genre">
+              <PropertyRef Name="Kategori_Id" />
+            </Principal>
+            <Dependent Role="Filmer">
+              <PropertyRef Name="Kategori_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FilmKveldDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brukere" EntityType="Self.Brukere" />
+          <EntitySet Name="Filmer" EntityType="Self.Filmer" />
+          <EntitySet Name="Genre" EntityType="Self.Genre" />
+          <AssociationSet Name="FK_Filmer_Genre" Association="Self.FK_Filmer_Genre">
+            <End Role="Genre" EntitySet="Genre" />
+            <End Role="Filmer" EntitySet="Filmer" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FilmKveldDBModelStoreContainer" CdmEntityContainer="FilmKveldDBEntities">
+          <EntitySetMapping Name="Brukere">
+            <EntityTypeMapping TypeName="FilmKveldDBModel.Brukere">
+              <MappingFragment StoreEntitySet="Brukere">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Fornavn" ColumnName="Fornavn" />
+                <ScalarProperty Name="Etternavn" ColumnName="Etternavn" />
+                <ScalarProperty Name="Brukernavn" ColumnName="Brukernavn" />
+                <ScalarProperty Name="Alder" ColumnName="Alder" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Filmer">
+            <EntityTypeMapping TypeName="FilmKveldDBModel.Filmer">
+              <MappingFragment StoreEntitySet="Filmer">
+                <ScalarProperty Name="Film_Id" ColumnName="Film_Id" />
+                <ScalarProperty Name="Tittel" ColumnName="Tittel" />
+                <ScalarProperty Name="Bilde" ColumnName="Bilde" />
+                <ScalarProperty Name="Utgivelsesaar" ColumnName="Utgivelsesaar" />
+                <ScalarProperty Name="Beskrivelse" ColumnName="Beskrivelse" />
+                <ScalarProperty Name="Kategori_Id" ColumnName="Kategori_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genre">
+            <EntityTypeMapping TypeName="FilmKveldDBModel.Genre">
+              <MappingFragment StoreEntitySet="Genre">
+                <ScalarProperty Name="Kategori_Id" ColumnName="Kategori_Id" />
+                <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
