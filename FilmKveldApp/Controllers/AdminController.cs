@@ -81,9 +81,9 @@ namespace FilmKveldApp.Controllers
                 nyFilm.Bilde = filnavn;
             }
 
-            using (var dbkobling = new MovieDBEntities1())
+            using (var dbkobling = new FilmKveldDBEntities())
             {
-                dbkobling.Movies.Add(newMovie);
+                dbkobling.Filmer.Add(nyFilm);
                 dbkobling.SaveChanges();
             }
             return View();
